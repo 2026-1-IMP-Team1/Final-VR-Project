@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 275544095}
   - component: {fileID: 275544094}
   - component: {fileID: 275544093}
+  - component: {fileID: 275544097}
   m_Layer: 0
   m_Name: Ray Interactor
   m_TagString: Untagged
@@ -1078,6 +1079,18 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
+--- !u!114 &275544097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275544091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc644f3ebb037d47a4d09fd2ef49298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PipeRotationController
 --- !u!1 &296736055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1104,7 @@ GameObject:
   - component: {fileID: 296736059}
   - component: {fileID: 296736058}
   - component: {fileID: 296736057}
+  - component: {fileID: 296736061}
   m_Layer: 0
   m_Name: Ray Interactor
   m_TagString: Untagged
@@ -1522,7 +1536,7 @@ MonoBehaviour:
   m_AllowHoverHapticsWhileSelecting: 1
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 1
+  m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
@@ -1711,6 +1725,18 @@ MonoBehaviour:
     m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: 0
+--- !u!114 &296736061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296736055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc644f3ebb037d47a4d09fd2ef49298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PipeRotationController
 --- !u!1 &316727086
 GameObject:
   m_ObjectHideFlags: 0

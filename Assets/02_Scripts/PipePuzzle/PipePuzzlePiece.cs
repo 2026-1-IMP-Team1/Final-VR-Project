@@ -1,26 +1,28 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using System.Linq;
 
 public class PipePuzzlePiece : MonoBehaviour
 {
-    [Header("컴포넌트")]
     private XRGrabInteractable grabInteractable;
 
-    [Header("상태")]
-    private bool isSnapped = false;
-    private PipePuzzleBoardGridSlot currentSlot = null;
-
     private int rotationStep = 0;
-
     private bool isRotating = false;
     private Quaternion targetRotation;
     [SerializeField] private float rotationSpeed = 10f;
+    public bool IsSnapped =>
+        grabInteractable.interactorsSelecting
+            .Any(i => i is XRSocketInteractor);
+    public PipePuzzleBoardGridSlot CurrentSlot =>
+        grabInteractable.interactorsSelecting
+            .OfType<XRSocketInteractor>()
+            .FirstOrDefault()
+            ?.GetComponent<PipePuzzleBoardGridSlot>();
 
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
-        grabInteractable.selectEntered.AddListener(OnGrabbed);
     }
 
     void Update()
@@ -41,50 +43,49 @@ public class PipePuzzlePiece : MonoBehaviour
         }
     }
 
-    public void RotateRight()
-    {
-        if (!isSnapped || isRotating) return;
-        rotationStep = (rotationStep + 1) % 4;
-        ApplyRotation();
-    }
-
     public void RotateLeft()
     {
-        if (!isSnapped || isRotating) return;
+        if (isRotating) return;
+        rotationStep = (rotationStep + 1) % 4;
+
+        if (IsSnapped && CurrentSlot != null)
+        {
+            RotateSlotAttachPoint(90f);
+            Debug.Log("Rotate Left (Snapped)");
+        }
+        else
+        {
+            targetRotation = transform.rotation * Quaternion.Euler(0, -90f, 0);
+            isRotating = true;
+            Debug.Log("Rotate Left (Free)");
+        }
+    }
+
+    public void RotateRight()
+    {
+        if (isRotating) return;
         rotationStep = (rotationStep + 3) % 4;
-        ApplyRotation();
+
+        if (IsSnapped && CurrentSlot != null)
+        {
+            RotateSlotAttachPoint(-90f);
+            Debug.Log("Rotate Right (Snapped)");
+        }
+        else
+        {
+            targetRotation = transform.rotation * Quaternion.Euler(0, 90f, 0);
+            isRotating = true;
+            Debug.Log("Rotate Right (Free)");
+        }
     }
 
-    private void ApplyRotation()
+    private void RotateSlotAttachPoint(float angle)
     {
-        float yAngle = rotationStep * 90f;
-        targetRotation = currentSlot.transform.rotation * Quaternion.Euler(0, yAngle, 0);
-        isRotating = true;
-    }
-
-    public void OnSnappedToGrid(PipePuzzleBoardGridSlot slot)
-    {
-        isSnapped = true;
-        currentSlot = slot;
-        rotationStep = 0;
-        targetRotation = slot.transform.rotation;
-        isRotating = true;
-    }
-
-    public void OnRemovedFromGrid()
-    {
-        isSnapped = false;
-        currentSlot = null;
+        Transform attachPoint = CurrentSlot.socketInteractor.attachTransform;
+        if (attachPoint != null)
+            attachPoint.rotation *= Quaternion.Euler(angle, 0, 0);
         isRotating = false;
     }
 
-    private void OnGrabbed(SelectEnterEventArgs args)
-    {
-        isRotating = false;
-        isSnapped = false;
-        currentSlot = null;
-    }
-
-    public bool IsSnapped => isSnapped;
     public int RotationStep => rotationStep;
 }
