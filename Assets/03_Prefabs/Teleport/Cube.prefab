@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 4322208789929132876}
   m_Layer: 0
   m_Name: Ractangle_Floor
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 6543631849853693780}
   m_Layer: 0
   m_Name: Ractangle_Bottom
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 6196268844094903705}
   m_Layer: 0
   m_Name: Ractangle_LoopTop
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 2167557327956033719}
   m_Layer: 0
   m_Name: Ractangle_Right
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 2936721380205267640}
   m_Layer: 0
   m_Name: Ractangle_Left
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1233,7 +1233,7 @@ GameObject:
   - component: {fileID: 2283855334320849804}
   m_Layer: 0
   m_Name: Ractangle_Top
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

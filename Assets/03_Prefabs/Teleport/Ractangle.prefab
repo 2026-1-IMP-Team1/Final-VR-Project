@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4279097881937244444}
   m_Layer: 0
   m_Name: Ractangle
-  m_TagString: Untagged
+  m_TagString: Ractangle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
