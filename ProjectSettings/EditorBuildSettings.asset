@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 55daccc09a3b69647bbab145b54a3ab3
-  - enabled: 1
     path: Assets/01_Scenes/ButtonPuzzelRoom.unity
     guid: 29fbbc918ba706a4bbf89f9c5dde44d3
+  - enabled: 1
+    path: Assets/01_Scenes/Start.unity
+    guid: 13eaf5ee0e557b2478502172fdcbe1c5
+  - enabled: 1
+    path: Assets/01_Scenes/PipePuzzleRoom.unity
+    guid: a213f5735459941479ede50b1fa1fa2b
+  - enabled: 1
+    path: Assets/01_Scenes/TeleportPuzzleRoom.unity
+    guid: f87c52a453001dd4cbfce40685a68fdb
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
