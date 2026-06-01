@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PipePuzzleLogic : MonoBehaviour
 {
@@ -121,6 +122,7 @@ public class PipePuzzleLogic : MonoBehaviour
 
         Debug.Log("[PipePuzzleLogic] 성공!");
         onPuzzleSolved?.Invoke();
+        SceneManager.LoadScene("TeleportPuzzleRoom");
     }
 
     private static Vector2Int DirectionToOffset(PipeDirection dir)

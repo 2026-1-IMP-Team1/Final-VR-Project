@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -6,6 +7,7 @@ public class PipeRotationController : MonoBehaviour
 {
     [SerializeField] private InputActionReference rotateRightAction;
     [SerializeField] private InputActionReference rotateLeftAction;
+    [SerializeField] public UnityEvent onPipeRotated;
 
     private PipePuzzlePiece hoveredPipe = null;
     private XRRayInteractor rayInteractor;
@@ -41,18 +43,26 @@ public class PipeRotationController : MonoBehaviour
         if (hoveredPipe == null) return;
 
         if (Input.GetKeyDown(KeyCode.X))
+        {
             hoveredPipe.RotateRight();
+            onPipeRotated?.Invoke();
+        }
         if (Input.GetKeyDown(KeyCode.Z))
+        {
             hoveredPipe.RotateLeft();
+            onPipeRotated?.Invoke();
+        }
     }
 
     private void OnRotateRight(InputAction.CallbackContext ctx)
     {
         hoveredPipe?.RotateRight();
+        onPipeRotated?.Invoke();
     }
 
     private void OnRotateLeft(InputAction.CallbackContext ctx)
     {
         hoveredPipe?.RotateLeft();
+        onPipeRotated?.Invoke();
     }
 }
