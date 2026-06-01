@@ -154,9 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 0, y: 2}
   socketInteractor: {fileID: 8402332017879798054}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &4696536062454006715
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -221,6 +220,7 @@ GameObject:
   - component: {fileID: 1062101417350188573}
   - component: {fileID: 5244272755502832392}
   - component: {fileID: 5576837338910830484}
+  - component: {fileID: 8277512709214687137}
   m_Layer: 0
   m_Name: PipePuzzleBoard
   m_TagString: Untagged
@@ -330,6 +330,38 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8277512709214687137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956324451259329493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3a09a2e2607714aacd9a881983d4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleLogic
+  allSlots:
+  - {fileID: 2366442787037666940}
+  - {fileID: 8970086970964346472}
+  - {fileID: 1055014326079447014}
+  - {fileID: 521356075324112863}
+  - {fileID: 4065395194850824551}
+  - {fileID: 767774602584324578}
+  - {fileID: 570763517467760918}
+  - {fileID: 1336464677746027985}
+  - {fileID: 8847808704210775749}
+  entryGridPos: {x: 0, y: 0}
+  entryFromDirection: 3
+  exitGridPos: {x: 2, y: 2}
+  exitToDirection: 1
+  onPuzzleSolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onPuzzleFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1769692502371973765
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,9 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 1, y: 2}
   socketInteractor: {fileID: 5855274338388737117}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &5577009244294289061
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -724,9 +755,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 1, y: 0}
   socketInteractor: {fileID: 3600580268581961108}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &1729914035027999710
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -902,9 +932,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 2, y: 0}
   socketInteractor: {fileID: 6345174888880919127}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &8331909672263348419
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1111,9 +1140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 2, y: 2}
   socketInteractor: {fileID: 1835720837570058354}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &1576160631697456174
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1310,9 +1338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 0, y: 0}
   socketInteractor: {fileID: 2115599387471178501}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!1 &6391994699169834117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,9 +1587,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 1, y: 1}
   socketInteractor: {fileID: 6489414007779227950}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &1683474276418469988
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1769,9 +1795,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 2, y: 1}
   socketInteractor: {fileID: 4079562489294777122}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &4234448558441787204
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1947,9 +1972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6537519f084842469c6aaec498b312f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzleBoardGridSlot
+  gridPosition: {x: 0, y: 1}
   socketInteractor: {fileID: 3332278833063251027}
-  isOccupied: 0
-  occupiedPipe: {fileID: 0}
 --- !u!135 &3192257722349402377
 SphereCollider:
   m_ObjectHideFlags: 0
