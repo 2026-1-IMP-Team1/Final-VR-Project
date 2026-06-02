@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class CustomFallRespawn : MonoBehaviour
 {
     [Header("Gravity Settings")]

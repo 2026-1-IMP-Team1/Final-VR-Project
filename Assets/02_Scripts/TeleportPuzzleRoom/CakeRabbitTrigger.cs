@@ -54,39 +54,34 @@ public class CakeRabbitTrigger : MonoBehaviour
     {
         if (isTransitioning) return;
 
-        bool isPlayer = false;
+        bool hasRespawnComponent = false;
 
-        // 플레이어 판정 로직 강화:
-        // 1. 직접 부딪힌 오브젝트가 "Player" 태그인 경우
-        // 2. 최상위(Root) 오브젝트가 "Player" 태그인 경우 (VR 카메라 리그 등)
-        // 3. 부모 오브젝트 중 하나가 "Player" 태그인 경우
-        if (hitObject.CompareTag(playerTag) || 
-            (hitObject.transform.root != null && hitObject.transform.root.CompareTag(playerTag)) ||
-            (hitObject.GetComponentInParent<Transform>() != null && hitObject.GetComponentInParent<Transform>().CompareTag(playerTag)))
+        // CustomFallRespawn 컴포넌트 감지 로직:
+        // 1. 직접 부딪힌 오브젝트에 붙어있는가?
+        // 2. 부모나 조상 오브젝트(예: XR Origin 등)에 붙어있는가?
+        // 3. 최상위(Root) 오브젝트 혹은 그 자식들 중에 붙어있는가?
+        if (hitObject.GetComponent<CustomFallRespawn>() != null)
         {
-            isPlayer = true;
+            hasRespawnComponent = true;
+        }
+        else if (hitObject.GetComponentInParent<CustomFallRespawn>() != null)
+        {
+            hasRespawnComponent = true;
+        }
+        else if (hitObject.transform.root != null && hitObject.transform.root.GetComponentInChildren<CustomFallRespawn>() != null)
+        {
+            hasRespawnComponent = true;
         }
 
-        // 4. CharacterController가 있는 경우 플레이어로 판정
-        if (!isPlayer && checkCharacterController)
-        {
-            if (hitObject.GetComponent<CharacterController>() != null || 
-                hitObject.GetComponentInParent<CharacterController>() != null || 
-                hitObject.transform.root.GetComponentInChildren<CharacterController>() != null)
-            {
-                isPlayer = true;
-            }
-        }
-
-        if (isPlayer)
+        if (hasRespawnComponent)
         {
             isTransitioning = true;
-            Debug.Log($"[CakeRabbitTrigger] ★플레이어 감지 성공★ 씬 전환을 시도합니다: {targetSceneName}");
+            Debug.Log($"[CakeRabbitTrigger] ★CustomFallRespawn 감지 성공!★ 씬 전환을 시도합니다: {targetSceneName}");
             SceneManager.LoadScene(targetSceneName);
         }
         else
         {
-            Debug.Log($"[CakeRabbitTrigger] 부딪힌 오브젝트({hitObject.name})는 플레이어가 아닌 것으로 판정되었습니다. (Player 태그 또는 CharacterController 없음)");
+            Debug.Log($"[CakeRabbitTrigger] 부딪힌 오브젝트({hitObject.name})는 CustomFallRespawn 컴포넌트가 없어 씬 전환이 무시되었습니다.");
         }
     }
 }
