@@ -8,8 +8,12 @@ public class SingleButton : MonoBehaviour
     public int buttonId;
 
     [Header("누름 애니메이션")]
-    public float pressDepth = 0.012f;   // 눌렸을 때 들어가는 깊이(m). 반대로 들어가면 음수로
+    public float pressDepth = 0.012f;
     public float pressSpeed = 14f;
+
+    [Header("사운드")]
+    public AudioClip pressSound;    // 버튼 누를 때
+    private AudioSource audioSource;
 
     private XRSimpleInteractable interactable;
     private Renderer rend;
@@ -25,14 +29,17 @@ public class SingleButton : MonoBehaviour
         rend = GetComponent<Renderer>();
         originalColor = rend.material.color;
 
+        // AudioSource 자동 추가
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 3D 사운드
+
         interactable.selectEntered.AddListener(OnSelectEnter);
-        interactable.selectExited.AddListener(OnSelectExit);
     }
 
     void Start()
     {
         restPos = transform.localPosition;
-        // 캡이 향한 방향(-위쪽)으로 들어가도록 계산
         Vector3 dir = transform.parent != null
             ? transform.parent.InverseTransformDirection(-transform.up)
             : -transform.up;
@@ -51,20 +58,19 @@ public class SingleButton : MonoBehaviour
         if (interactable != null)
         {
             interactable.selectEntered.RemoveListener(OnSelectEnter);
-            interactable.selectExited.RemoveListener(OnSelectExit);
         }
     }
 
     void OnSelectEnter(SelectEnterEventArgs args)
     {
         isPressed = true;
+
+        // 누를 때 사운드
+        if (pressSound != null)
+            audioSource.PlayOneShot(pressSound);
+
         if (buttonManager != null)
             buttonManager.OnButtonInteract(this);
-    }
-
-    void OnSelectExit(SelectExitEventArgs args)
-    {
-        isPressed = false;
     }
 
     public void SetSelected(bool selected, Color selectedColor)
