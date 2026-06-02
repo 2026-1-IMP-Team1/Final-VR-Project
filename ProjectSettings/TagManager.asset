@@ -5,11 +5,16 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+  - Triangle
+  - Ractangle
+  - Circle
+  - Floor
+  - Clear
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
