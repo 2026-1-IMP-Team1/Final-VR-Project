@@ -9,6 +9,7 @@ TagManager:
   - Ractangle
   - Circle
   - Floor
+  - Clear
   layers:
   - Default
   - TransparentFX
