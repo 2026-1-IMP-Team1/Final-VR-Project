@@ -4,28 +4,23 @@ using UnityEngine.SceneManagement;
 public class CakeRabbitTrigger : MonoBehaviour
 {
     [Header("Scene Settings")]
-    [Tooltip("플레이어가 닿았을 때 이동할 씬의 이름입니다.")]
     public string targetSceneName = "ButtonPuzzelRoom";
 
     [Header("Collision Settings")]
-    [Tooltip("플레이어 오브젝트에 설정된 태그입니다.")]
     public string playerTag = "Player";
 
-    [Tooltip("태그 검사 외에 CharacterController 컴포넌트 유무로도 플레이어를 판별할지 여부입니다.")]
     public bool checkCharacterController = true;
 
     private bool isTransitioning = false;
 
     private void Start()
     {
-        // 1. Collider 확인
         Collider col = GetComponent<Collider>();
         if (col == null)
         {
             Debug.LogError($"[CakeRabbitTrigger] {gameObject.name} 오브젝트에 Collider(충돌체)가 없습니다! Box Collider나 Sphere Collider 등을 추가해 주세요.");
         }
 
-        // 2. Rigidbody 확인 (물리 충돌 감지를 위해 둘 중 하나에는 Rigidbody가 필요합니다)
         Rigidbody rb = GetComponent<Rigidbody>();
         Rigidbody parentRb = GetComponentInParent<Rigidbody>();
         if (rb == null && parentRb == null)
@@ -38,14 +33,12 @@ public class CakeRabbitTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 충돌이 일어나면 무조건 어떤 오브젝트와 부딪혔는지 로그를 남겨 디버깅을 돕습니다.
         Debug.Log($"[CakeRabbitTrigger] Trigger 진입 감지! 부딪힌 오브젝트: {other.gameObject.name} | 태그: {other.gameObject.tag}");
         TryTransition(other.gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 충돌이 일어나면 무조건 어떤 오브젝트와 부딪혔는지 로그를 남겨 디버깅을 돕습니다.
         Debug.Log($"[CakeRabbitTrigger] Collision 충돌 감지! 부딪힌 오브젝트: {collision.gameObject.name} | 태그: {collision.gameObject.tag}");
         TryTransition(collision.gameObject);
     }
@@ -56,10 +49,6 @@ public class CakeRabbitTrigger : MonoBehaviour
 
         bool hasRespawnComponent = false;
 
-        // CustomFallRespawn 컴포넌트 감지 로직:
-        // 1. 직접 부딪힌 오브젝트에 붙어있는가?
-        // 2. 부모나 조상 오브젝트(예: XR Origin 등)에 붙어있는가?
-        // 3. 최상위(Root) 오브젝트 혹은 그 자식들 중에 붙어있는가?
         if (hitObject.GetComponent<CustomFallRespawn>() != null)
         {
             hasRespawnComponent = true;
