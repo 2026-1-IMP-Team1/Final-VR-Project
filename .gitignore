@@ -107,3 +107,6 @@ InitTestScene*.unity*
 
 # cache files
 *.lscache
+
+# AndroidXR
+/Assets/XR/AndroidXR/AndroidXRSettingsInitializer

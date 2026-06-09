@@ -4,29 +4,39 @@ using System.Collections.Generic;
 
 public class ButtonManager : MonoBehaviour
 {
-    public Color selectedColor = Color.yellow;   // 선택 중 표시 색
-    public Color correctColor  = Color.green;    // 정답일 때 색
+    public Color selectedColor = Color.yellow;
+    public Color correctColor  = Color.green;
     public int maxSelect = 4;
-    public float resetDelay = 1.0f;              // 오답 시 초기화까지 시간
-    public int[] correctAnswer;                  // 정답 버튼 id 순서, 예: [2, 5, 7, 1]
+    public float resetDelay = 1.0f;
+    public int[] correctAnswer;
+
+    [Header("사운드")]
+    public AudioClip successSound;  // 정답 사운드
+    public AudioClip failSound;     // 오답 사운드
+    private AudioSource audioSource;
 
     private List<SingleButton> selectedButtons = new List<SingleButton>();
     private bool isChecking = false;
     private bool isSolved = false;
 
+    void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 3D 사운드
+    }
+
     public void OnButtonInteract(SingleButton button)
     {
-        if (isChecking || isSolved) return;      // 확인 중이거나 이미 풀렸으면 입력 무시
+        if (isChecking || isSolved) return;
 
         if (selectedButtons.Contains(button))
         {
-            // 이미 선택됨 → 취소
             selectedButtons.Remove(button);
             button.SetSelected(false, selectedColor);
         }
         else
         {
-            // 새로 선택
             if (selectedButtons.Count >= maxSelect) return;
 
             selectedButtons.Add(button);
@@ -43,16 +53,22 @@ public class ButtonManager : MonoBehaviour
 
         if (CheckAnswers())
         {
-            // 정답 → 4개 버튼을 정답 색(초록)으로 바꾸고 그대로 유지
             foreach (SingleButton b in selectedButtons)
                 b.SetSelected(true, correctColor);
+
+            // 정답 사운드 재생
+            if (successSound != null)
+                audioSource.PlayOneShot(successSound);
 
             isSolved = true;
             Debug.Log("정답!");
         }
         else
         {
-            // 오답 → 잠깐 보여준 뒤 초기화
+            // 오답 사운드 재생
+            if (failSound != null)
+                audioSource.PlayOneShot(failSound);
+
             Debug.Log("오답!");
             yield return new WaitForSeconds(resetDelay);
             ResetButtons();
