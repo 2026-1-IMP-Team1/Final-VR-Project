@@ -2027,8 +2027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc644f3ebb037d47a4d09fd2ef49298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipeRotationController
-  rotateRightAction: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
-  rotateLeftAction: {fileID: -8069514856583376848, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+  rotateRightAction: {fileID: 0}
+  rotateLeftAction: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
   onPipeRotated:
     m_PersistentCalls:
       m_Calls:
@@ -2751,7 +2751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipeRotationController
   rotateRightAction: {fileID: -3599823989380923159, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
-  rotateLeftAction: {fileID: -8069514856583376848, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+  rotateLeftAction: {fileID: 0}
   onPipeRotated:
     m_PersistentCalls:
       m_Calls:
@@ -5814,6 +5814,10 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_Name
       value: XR Device Simulator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
