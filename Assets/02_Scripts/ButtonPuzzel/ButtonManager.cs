@@ -11,9 +11,12 @@ public class ButtonManager : MonoBehaviour
     public int[] correctAnswer;
 
     [Header("사운드")]
-    public AudioClip successSound;  // 정답 사운드
-    public AudioClip failSound;     // 오답 사운드
+    public AudioClip successSound;
+    public AudioClip failSound;
     private AudioSource audioSource;
+
+    [Header("클리어 UI")]
+    public GameObject clearUI;
 
     private List<SingleButton> selectedButtons = new List<SingleButton>();
     private bool isChecking = false;
@@ -23,7 +26,10 @@ public class ButtonManager : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f; // 3D 사운드
+        audioSource.spatialBlend = 1f;
+
+        if (clearUI != null)
+            clearUI.SetActive(false);
     }
 
     public void OnButtonInteract(SingleButton button)
@@ -56,16 +62,20 @@ public class ButtonManager : MonoBehaviour
             foreach (SingleButton b in selectedButtons)
                 b.SetSelected(true, correctColor);
 
-            // 정답 사운드 재생
             if (successSound != null)
                 audioSource.PlayOneShot(successSound);
 
             isSolved = true;
             Debug.Log("정답!");
+
+            yield return new WaitForSeconds(1.0f);
+            ShowClearUI();
         }
         else
         {
-            // 오답 사운드 재생
+            foreach (SingleButton b in selectedButtons)
+                b.SetSelected(true, Color.red);
+
             if (failSound != null)
                 audioSource.PlayOneShot(failSound);
 
@@ -75,6 +85,18 @@ public class ButtonManager : MonoBehaviour
         }
 
         isChecking = false;
+    }
+
+    void ShowClearUI()
+    {
+        if (clearUI == null) return;
+
+        Transform cam = Camera.main.transform;
+        clearUI.transform.position = cam.position + cam.forward * 2f;
+        clearUI.transform.LookAt(cam);
+        clearUI.transform.Rotate(0, 180, 0);
+
+        clearUI.SetActive(true);
     }
 
     bool CheckAnswers()
