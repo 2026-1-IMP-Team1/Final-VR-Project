@@ -72,7 +72,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 83b634837f963a54881548e6235b1a8e, type: 2}
+  - {fileID: 2100000, guid: edfb454e112c43947a321bec3bcd241c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -285,6 +285,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d13f109d143e3f542abf6deadc30f652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PipePuzzlePiece
+  openUp: 0
+  openDown: 0
+  openLeft: 0
+  openRight: 0
   rotationSpeed: 10
 --- !u!1 &6394855802396896995
 GameObject:

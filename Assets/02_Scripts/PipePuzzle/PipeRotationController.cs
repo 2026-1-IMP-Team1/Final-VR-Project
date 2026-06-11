@@ -66,7 +66,19 @@ public class PipeRotationController : MonoBehaviour
         }
 
         hoveredPipe = found;
-        Debug.Log(hoveredPipe);
+        // Debug.Log(hoveredPipe);
+
+        // only for XR Device Simulator, not for VR Devices 
+        /*if (Input.GetKeyDown(KeyCode.X))
+        {
+            hoveredPipe?.RotateRight();
+            onPipeRotated?.Invoke();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            hoveredPipe?.RotateLeft();
+            onPipeRotated?.Invoke();
+        }*/
     }
 
     private void OnRotateRight(InputAction.CallbackContext ctx)
