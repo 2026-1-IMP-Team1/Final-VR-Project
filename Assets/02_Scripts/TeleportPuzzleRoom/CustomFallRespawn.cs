@@ -40,6 +40,7 @@ public class CustomFallRespawn : MonoBehaviour
         if (transform.position.y < fallThreshold)
         {
             characterController.enabled = false;
+            transform.rotation = Quaternion.identity;
             transform.position = startPosition;
             velocity = Vector3.zero;
             characterController.enabled = true;
