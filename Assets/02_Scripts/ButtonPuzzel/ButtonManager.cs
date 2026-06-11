@@ -26,7 +26,7 @@ public class ButtonManager : MonoBehaviour
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 1f;
+        audioSource.spatialBlend = 0f;
 
         if (clearUI != null)
             clearUI.SetActive(false);
