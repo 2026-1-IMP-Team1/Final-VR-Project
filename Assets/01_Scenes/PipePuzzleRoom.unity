@@ -844,6 +844,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1550262430}
     - target: {fileID: 1835720837570058354, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835720837570058354, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1562582852}
@@ -863,6 +867,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1550262430}
+    - target: {fileID: 2115599387471178501, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2115599387471178501, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_InteractableHoverMeshMaterial
       value: 
@@ -892,6 +900,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1550262430}
     - target: {fileID: 3332278833063251027, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332278833063251027, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1562582852}
@@ -911,6 +923,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1550262430}
+    - target: {fileID: 3600580268581961108, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3600580268581961108, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -936,6 +952,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1550262430}
     - target: {fileID: 4079562489294777122, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079562489294777122, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1562582852}
@@ -959,6 +979,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1550262430}
+    - target: {fileID: 5855274338388737117, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5855274338388737117, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -984,6 +1008,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1550262430}
     - target: {fileID: 6345174888880919127, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345174888880919127, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1562582852}
@@ -1003,6 +1031,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1550262430}
+    - target: {fileID: 6489414007779227950, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6489414007779227950, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1055,6 +1087,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1550262430}
+    - target: {fileID: 8402332017879798054, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: m_ShowInteractableHoverMeshes
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8402332017879798054, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
