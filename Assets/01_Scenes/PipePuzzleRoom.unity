@@ -1039,6 +1039,18 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: a26936158ac0c7d44b51243f09d25847, type: 2}
+    - target: {fileID: 8277512709214687137, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: rotationControllers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8277512709214687137, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: 'rotationControllers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 296736061}
+    - target: {fileID: 8277512709214687137, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
+      propertyPath: 'rotationControllers.Array.data[1]'
+      value: 
+      objectReference: {fileID: 275544097}
     - target: {fileID: 8402332017879798054, guid: 911d7693ecbc8b547ae631634d95e2db, type: 3}
       propertyPath: m_InteractionManager
       value: 
