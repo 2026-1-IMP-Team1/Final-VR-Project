@@ -177,9 +177,15 @@ public class TeleportPuzzleSequenceRule : MonoBehaviour
             controller.enabled = false;
 
         if (xrOrigin != null)
+        {
+            xrOrigin.transform.rotation = Quaternion.identity;
             xrOrigin.MoveCameraToWorldLocation(position);
+        }
         else if (fallbackPlayerRoot != null)
+        {
+            fallbackPlayerRoot.rotation = Quaternion.identity;
             fallbackPlayerRoot.position = position;
+        }
 
         if (controller != null)
             controller.enabled = true;
