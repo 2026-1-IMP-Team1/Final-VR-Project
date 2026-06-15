@@ -47,7 +47,7 @@ public class PipeRotationController : MonoBehaviour
 
     void Update()
     {
-        // 트리거를 누르면 hovered → selected로 이동하므로 둘 다 확인
+        // A trigger press moves an interactable from hovered to selected, so check both lists
         PipePuzzlePiece found = null;
 
         foreach (var interactable in rayInteractor.interactablesHovered)
@@ -66,9 +66,8 @@ public class PipeRotationController : MonoBehaviour
         }
 
         hoveredPipe = found;
-        // Debug.Log(hoveredPipe);
 
-        // only for XR Device Simulator, not for VR Devices 
+        // Keyboard fallback — only for XR Device Simulator, not real VR hardware
         if (Input.GetKeyDown(KeyCode.X))
         {
             hoveredPipe?.RotateRight();

@@ -16,6 +16,7 @@ public class PipePuzzlePiece : MonoBehaviour
 
     private XRGrabInteractable grabInteractable;
 
+    // Each step represents one 90-degree CCW rotation (RotateLeft increments by 1)
     private int rotationStep = 0;
     private bool isRotating = false;
     private Quaternion targetRotation;
@@ -24,9 +25,11 @@ public class PipePuzzlePiece : MonoBehaviour
     private Quaternion slotOriginalAttachRotation;
     private XRSocketInteractor modifiedSocket = null;
 
+    // True when this piece is held by a socket (snapped into a slot)
     public bool IsSnapped =>
         grabInteractable.interactorsSelecting
             .Any(i => i is XRSocketInteractor);
+
     public PipePuzzleBoardGridSlot CurrentSlot =>
         grabInteractable.interactorsSelecting
             .OfType<XRSocketInteractor>()
@@ -47,7 +50,7 @@ public class PipePuzzlePiece : MonoBehaviour
         if (args.interactorObject is not XRSocketInteractor socket) return;
         if (socket.attachTransform == null || modifiedSocket == socket) return;
 
-        // 이전에 수정한 소켓이 있으면 slotOriginalAttachRotation을 덮어쓰기 전에 먼저 복원
+        // Restore the previously modified socket before saving a new baseline
         if (modifiedSocket != null && !IsSnapped)
             ResetModifiedSocket();
 
@@ -77,7 +80,8 @@ public class PipePuzzlePiece : MonoBehaviour
         if (socket.attachTransform == null) return;
 
         isRotating = false;
-        // 호버 단계에서 이미 처리된 경우 중복 적용 방지
+
+        // Skip if hover already set up this socket to avoid double-applying
         if (modifiedSocket != socket)
         {
             slotOriginalAttachRotation = socket.attachTransform.rotation;
@@ -90,8 +94,8 @@ public class PipePuzzlePiece : MonoBehaviour
     {
         if (args.interactorObject is not XRSocketInteractor socket) return;
         ResetModifiedSocket();
-        // OnHoverEntered(X)가 OnSelectExited(X)보다 먼저 와서 early return된 경우를 위해
-        // 다음 프레임에 아직 같은 소켓을 호버 중이면 회전을 재적용
+
+        // If hover re-entered before select exited, the rotation was skipped — reapply next frame
         StartCoroutine(RecheckHoverNextFrame(socket));
     }
 
@@ -114,10 +118,10 @@ public class PipePuzzlePiece : MonoBehaviour
         }
     }
 
+    // Rotates the socket's attach transform to match this piece's current rotationStep.
+    // rotationStep counts CCW steps, so CW count = (4 - rotationStep) % 4.
     private void ApplyRotationStepToSlot(XRSocketInteractor socket)
     {
-        // RotateLeft(CCW) 1회 = rotationStep+1, 슬롯 attachTransform Euler(90,0,0)
-        // cwCount번 CW 회전 = Euler(-90*cwCount, 0, 0)
         int cwCount = (4 - rotationStep) % 4;
         socket.attachTransform.rotation = slotOriginalAttachRotation * Quaternion.Euler(-90f * cwCount, 0, 0);
     }
@@ -140,6 +144,7 @@ public class PipePuzzlePiece : MonoBehaviour
         }
     }
 
+    // CCW 90-degree rotation; step increments by 1
     public void RotateLeft()
     {
         if (isRotating) return;
@@ -158,6 +163,7 @@ public class PipePuzzlePiece : MonoBehaviour
         }
     }
 
+    // CW 90-degree rotation; step decrements by 1 (+3 mod 4)
     public void RotateRight()
     {
         if (isRotating) return;
@@ -186,15 +192,14 @@ public class PipePuzzlePiece : MonoBehaviour
     public int RotationStep => rotationStep;
 
     /// <summary>
-    /// 현재 회전 상태에서 실제로 열려 있는 방향 집합을 반환합니다.
-    /// rotationStep 1 = RotateLeft(CCW) 1회, rotationStep 3 = RotateRight(CW) 1회
+    /// Returns the set of directions that are currently open after applying rotation.
+    /// RotateLeft (CCW) increments rotationStep; RotateRight (CW) decrements it (+3 mod 4).
     /// </summary>
     public HashSet<PipeDirection> GetOpenDirections()
     {
         var result = new HashSet<PipeDirection>();
 
-        // RotateRight(CW +90°Y)가 rotationStep을 -1(+3 mod4) 하므로
-        // CW 회전 횟수 = (4 - rotationStep) % 4
+        // CW rotation count derived from CCW-based rotationStep
         int cwCount = (4 - rotationStep) % 4;
 
         if (openUp)    result.Add(RotateCW(PipeDirection.Up,    cwCount));
@@ -205,6 +210,7 @@ public class PipePuzzlePiece : MonoBehaviour
         return result;
     }
 
+    // Rotates a direction clockwise by `count` steps (each step is 90 degrees)
     private static PipeDirection RotateCW(PipeDirection dir, int count)
     {
         return (PipeDirection)(((int)dir + count) % 4);
