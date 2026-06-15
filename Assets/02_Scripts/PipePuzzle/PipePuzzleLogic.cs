@@ -20,6 +20,9 @@ public class PipePuzzleLogic : MonoBehaviour
     [Tooltip("흐름이 빠져나가는 방향")]
     [SerializeField] private PipeDirection exitToDirection;
 
+    [Header("회전 컨트롤러")]
+    [SerializeField] private PipeRotationController[] rotationControllers;
+
     [Header("이벤트")]
     public UnityEvent onPuzzleSolved;
     public UnityEvent onPuzzleFailed;
@@ -32,14 +35,13 @@ public class PipePuzzleLogic : MonoBehaviour
         foreach (var slot in allSlots)
         {
             grid[slot.gridPosition] = slot;
-            slot.socketInteractor.selectEntered.AddListener(_ => OnPiecePlaced());
+            slot.socketInteractor.selectEntered.AddListener(_ => CheckSolution());
             slot.socketInteractor.selectExited.AddListener(_ => OnPieceRemoved());
         }
-    }
 
-    private void OnPiecePlaced()
-    {
-        CheckSolution();
+        foreach (var rc in rotationControllers)
+            if (rc != null)
+                rc.onPipeRotated.AddListener(CheckSolution);
     }
 
     private void OnPieceRemoved()
@@ -47,7 +49,7 @@ public class PipePuzzleLogic : MonoBehaviour
         // ...
     }
 
-    private void CheckSolution()
+    public void CheckSolution()
     {
         // 입구 슬롯 확인
         if (!grid.TryGetValue(entryGridPos, out var entrySlot) || entrySlot.OccupiedPipe == null)

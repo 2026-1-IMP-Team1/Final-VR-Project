@@ -1,8 +1,10 @@
-using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class PipePuzzlePiece : MonoBehaviour
 {
@@ -18,6 +20,10 @@ public class PipePuzzlePiece : MonoBehaviour
     private bool isRotating = false;
     private Quaternion targetRotation;
     [SerializeField] private float rotationSpeed = 10f;
+
+    private Quaternion slotOriginalAttachRotation;
+    private XRSocketInteractor modifiedSocket = null;
+
     public bool IsSnapped =>
         grabInteractable.interactorsSelecting
             .Any(i => i is XRSocketInteractor);
@@ -30,6 +36,90 @@ public class PipePuzzlePiece : MonoBehaviour
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable.hoverEntered.AddListener(OnHoverEntered);
+        grabInteractable.hoverExited.AddListener(OnHoverExited);
+        grabInteractable.selectEntered.AddListener(OnSelectEntered);
+        grabInteractable.selectExited.AddListener(OnSelectExited);
+    }
+
+    private void OnHoverEntered(HoverEnterEventArgs args)
+    {
+        if (args.interactorObject is not XRSocketInteractor socket) return;
+        if (socket.attachTransform == null || modifiedSocket == socket) return;
+
+        // 이전에 수정한 소켓이 있으면 slotOriginalAttachRotation을 덮어쓰기 전에 먼저 복원
+        if (modifiedSocket != null && !IsSnapped)
+            ResetModifiedSocket();
+
+        slotOriginalAttachRotation = socket.attachTransform.rotation;
+        modifiedSocket = socket;
+        ApplyRotationStepToSlot(socket);
+    }
+
+    private void OnHoverExited(HoverExitEventArgs args)
+    {
+        if (args.interactorObject is not XRSocketInteractor socket) return;
+        if (socket != modifiedSocket || IsSnapped) return;
+
+        ResetModifiedSocket();
+    }
+
+    private void ResetModifiedSocket()
+    {
+        if (modifiedSocket != null && modifiedSocket.attachTransform != null)
+            modifiedSocket.attachTransform.rotation = slotOriginalAttachRotation;
+        modifiedSocket = null;
+    }
+
+    private void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        if (args.interactorObject is not XRSocketInteractor socket) return;
+        if (socket.attachTransform == null) return;
+
+        isRotating = false;
+        // 호버 단계에서 이미 처리된 경우 중복 적용 방지
+        if (modifiedSocket != socket)
+        {
+            slotOriginalAttachRotation = socket.attachTransform.rotation;
+            modifiedSocket = socket;
+            ApplyRotationStepToSlot(socket);
+        }
+    }
+
+    private void OnSelectExited(SelectExitEventArgs args)
+    {
+        if (args.interactorObject is not XRSocketInteractor socket) return;
+        ResetModifiedSocket();
+        // OnHoverEntered(X)가 OnSelectExited(X)보다 먼저 와서 early return된 경우를 위해
+        // 다음 프레임에 아직 같은 소켓을 호버 중이면 회전을 재적용
+        StartCoroutine(RecheckHoverNextFrame(socket));
+    }
+
+    private IEnumerator RecheckHoverNextFrame(XRSocketInteractor socket)
+    {
+        yield return null;
+        if (modifiedSocket != null || IsSnapped) yield break;
+
+        bool stillHovering = false;
+        foreach (var interactable in socket.interactablesHovered)
+        {
+            if (interactable.transform == transform) { stillHovering = true; break; }
+        }
+
+        if (stillHovering)
+        {
+            slotOriginalAttachRotation = socket.attachTransform.rotation;
+            modifiedSocket = socket;
+            ApplyRotationStepToSlot(socket);
+        }
+    }
+
+    private void ApplyRotationStepToSlot(XRSocketInteractor socket)
+    {
+        // RotateLeft(CCW) 1회 = rotationStep+1, 슬롯 attachTransform Euler(90,0,0)
+        // cwCount번 CW 회전 = Euler(-90*cwCount, 0, 0)
+        int cwCount = (4 - rotationStep) % 4;
+        socket.attachTransform.rotation = slotOriginalAttachRotation * Quaternion.Euler(-90f * cwCount, 0, 0);
     }
 
     void Update()
@@ -57,7 +147,7 @@ public class PipePuzzlePiece : MonoBehaviour
 
         if (IsSnapped && CurrentSlot != null)
         {
-            RotateSlotAttachPoint(90f);
+            RotateSlotAttachPoint();
             Debug.Log("Rotate Left (Snapped)");
         }
         else
@@ -75,7 +165,7 @@ public class PipePuzzlePiece : MonoBehaviour
 
         if (IsSnapped && CurrentSlot != null)
         {
-            RotateSlotAttachPoint(-90f);
+            RotateSlotAttachPoint();
             Debug.Log("Rotate Right (Snapped)");
         }
         else
@@ -86,11 +176,10 @@ public class PipePuzzlePiece : MonoBehaviour
         }
     }
 
-    private void RotateSlotAttachPoint(float angle)
+    private void RotateSlotAttachPoint()
     {
-        Transform attachPoint = CurrentSlot.socketInteractor.attachTransform;
-        if (attachPoint != null)
-            attachPoint.rotation *= Quaternion.Euler(angle, 0, 0);
+        if (CurrentSlot?.socketInteractor != null)
+            ApplyRotationStepToSlot(CurrentSlot.socketInteractor);
         isRotating = false;
     }
 

@@ -69,7 +69,7 @@ public class PipeRotationController : MonoBehaviour
         // Debug.Log(hoveredPipe);
 
         // only for XR Device Simulator, not for VR Devices 
-        /*if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             hoveredPipe?.RotateRight();
             onPipeRotated?.Invoke();
@@ -78,7 +78,7 @@ public class PipeRotationController : MonoBehaviour
         {
             hoveredPipe?.RotateLeft();
             onPipeRotated?.Invoke();
-        }*/
+        }
     }
 
     private void OnRotateRight(InputAction.CallbackContext ctx)
