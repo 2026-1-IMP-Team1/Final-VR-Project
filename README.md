@@ -1,4 +1,4 @@
-# Final VR Project
+# TheCube - VR Room Escape Game with Puzzle
 
 Final VR Project is a Unity-based VR puzzle adventure. The player explores a sequence of puzzle rooms and solves each challenge through direct VR interactions such as grabbing objects, rotating puzzle pieces, placing items into sockets, pressing buttons, and teleporting through the environment.
 
